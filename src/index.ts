@@ -39,7 +39,7 @@ app.use('/api', apiLimiter, routes)
 // Error handler - must be last.
 app.use(errorHandler)
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Backend running on http://localhost:${PORT}`)
   console.log(`Clarity configured: ${!!process.env.CLARITY_API_TOKEN}`)
 })
