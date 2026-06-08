@@ -36,6 +36,12 @@ CLARITY_API_TOKEN=your_clarity_export_token
 
 - `GET /api/health` - backend health and Clarity configuration status
 - `GET /api/clarity` - Microsoft Clarity analytics data
+- `GET /api/settings/keyword-map` - referral keyword mappings
+- `POST /api/settings/keyword-map` - save referral keyword mappings
+
+## Settings Data
+
+The `/data/keywordMap.json` file is gitignored. On first deploy, the default mappings are used. Any changes made via Settings page are saved locally.
 
 ## Clarity Caching
 

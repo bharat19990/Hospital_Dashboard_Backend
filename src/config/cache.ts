@@ -18,5 +18,8 @@ export function getCache(): NodeCache {
 }
 
 export const CACHE_TTL = {
-  clarity: 8640
+  clarity: 8640,
+  youtube: 7200,
+  ga4: 3600,
+  searchConsole: 86400
 }
