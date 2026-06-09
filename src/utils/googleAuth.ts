@@ -6,12 +6,19 @@ interface GoogleTokenResponse {
   expires_in: number
 }
 
-function getTokenCacheKey(clientId: string): string {
-  return `access_token_${clientId.slice(-8)}`
+function getTokenCacheKey(clientId: string, refreshToken: string): string {
+  return `access_token_${clientId.slice(-8)}_${refreshToken.slice(-8)}`
 }
 
 export function clearGoogleAccessToken(clientId: string): void {
-  getCache().del(getTokenCacheKey(clientId))
+  const cache = getCache()
+  const prefix = `access_token_${clientId.slice(-8)}`
+  const keys = cache.keys()
+  for (const key of keys) {
+    if (key.startsWith(prefix)) {
+      cache.del(key)
+    }
+  }
 }
 
 function getErrorMessage(error: unknown): string {
@@ -33,7 +40,7 @@ export async function getGoogleAccessToken(
   refreshToken: string
 ): Promise<string> {
   const cache = getCache()
-  const cacheKey = getTokenCacheKey(clientId)
+  const cacheKey = getTokenCacheKey(clientId, refreshToken)
   const cachedToken = cache.get<string>(cacheKey)
 
   if (cachedToken) {
